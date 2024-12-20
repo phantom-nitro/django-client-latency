@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Side Server Pinger</title>
+    <script>
+        let serverGroups = {}; 
+        let intervalId = null; 
+
+        // Fetch server groups from the backend
+        async function fetchServerGroups() {
+            try {
+                const response = await fetch('/server-groups/');
+                serverGroups = await response.json();
+
+                // Populate the dropdown with game options
+                const dropdown = document.getElementById('game-select');
+                dropdown.innerHTML = '<option value="">-- Select a Game --</option>'; 
+                const gameMap = {
+                    game1: 'Rainbow Six Siege',
+                    game2: 'csgo',
+                    game3: 'Google'
+                };
+                for (const game in serverGroups) {
+                    const option = document.createElement('option');
+                    option.value = game;
+                    option.textContent = gameMap[game];
+                    dropdown.appendChild(option);
+                }
+            } catch (error) {
+                console.error('Error fetching server groups:', error);
+            }
+        }
+
+        // Simulate ping using HTTP requests
+        async function pingServer(url) {
+            const start = Date.now();
+            try {
+                await fetch(url, { method: 'HEAD', cache: 'no-store' });
+                const latency = Date.now() - start;
+                return `${latency} ms`;
+            } catch (error) {
+                console.error(`Error pinging ${url}:`, error);
+                return "Timed out";
+            }
+        }
+
+        async function fetchPingResults(game) {
+            const servers = serverGroups[game];
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Clear previous results
+
+            for (const [region, url] of Object.entries(servers)) {
+                const latency = await pingServer(url);
+                const p = document.createElement('p');
+                p.textContent = `${region}: ${latency}`;
+                resultsDiv.appendChild(p);
+            }
+        }
+
+        function onGameChange() {
+            const dropdown = document.getElementById('game-select');
+            const selectedGame = dropdown.value;
+
+            if (!selectedGame) {
+                clearInterval(intervalId);
+                document.getElementById('results').innerHTML = '<p>Please select a game to display results.</p>';
+                return;
+            }
+
+            // Fetch and refresh results every 5 seconds
+            fetchPingResults(selectedGame); 
+            clearInterval(intervalId); // Clear previous interval if any
+            intervalId = setInterval(() => fetchPingResults(selectedGame), 3000);
+        }
+
+        // Initialize the page
+        window.onload = () => {
+            fetchServerGroups(); // Fetch server groups dynamically on page load
+        };
+    </script>
+</head>
+<body>
+    <h1>Client-Side Server Pinger</h1>
+    <label for="game-select">Select Game:</label>
+    <select id="game-select" onchange="onGameChange()">
+        <option value="">-- Select a Game --</option>
+    </select>
+    <div id="results">
+        <p>Please select a game to display results.</p>
+    </div>
+</body>
+</html>

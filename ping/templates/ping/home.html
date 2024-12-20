@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game List</title>
+</head>
+<body>
+    <h1>Select a Game</h1>
+    <select id="game-select" onchange="redirectToGamePage()">
+        <option value="">-- Select a Game --</option>
+        <option value="rainbow-six-siege">Rainbow Six Siege</option>
+        <option value="csgo">CSGO</option>
+        <option value="browser">Browser</option>
+    </select>
+
+    <script>
+        function redirectToGamePage() {
+            const dropdown = document.getElementById('game-select');
+            const selectedGame = dropdown.value;
+            if (selectedGame) {
+                window.location.href = `/${selectedGame}`;
+            }
+        }
+    </script>
+</body>
+</html>
