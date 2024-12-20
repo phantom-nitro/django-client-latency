@@ -26,6 +26,18 @@
     </style>
 </head>
 <body>
+        <!-- Dropdown to navigate between games -->
+        <div class="dropdown">
+            <label for="game-select">Select Game:</label>
+            <select id="game-select">
+                {% for game_name, game_data in games.items %}
+                <option value="{{ game_name }}" {% if current_game == game_name %}selected{% endif %}>
+                    {{ game_data.title }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
     <h1>{{ game.title }}</h1>
     <p>{{ game.article }}</p>
 
@@ -39,6 +51,15 @@
     <a href="/">Back to Home</a>
 
     <script>
+           // Redirect to the selected game's page
+           const gameSelect = document.getElementById('game-select');
+        gameSelect.addEventListener('change', (event) => {
+            const selectedGame = event.target.value;
+            if (selectedGame) {
+                window.location.href = `/${selectedGame}`;
+            }
+        });
+        
         // Function to ping a server and display the latency
         async function pingServer(url, element) {
             const start = Date.now();
