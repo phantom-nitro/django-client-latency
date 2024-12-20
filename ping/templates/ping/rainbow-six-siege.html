@@ -26,6 +26,18 @@
     </style>
 </head>
 <body>
+        <!-- Dropdown to navigate between games -->
+        <div class="dropdown">
+            <label for="game-select">Select Game:</label>
+            <select id="game-select">
+                {% for game_name, game_data in games.items %}
+                <option value="{{ game_name }}" {% if current_game == game_name %}selected{% endif %}>
+                    {{ game_data.title }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        
     <h1>{{ game.title }}</h1>
     <p>{{ game.article }}</p>
 
@@ -38,17 +50,7 @@
 
     <a href="/">Back to Home</a>
 
-        <!-- Dropdown to navigate between games -->
-    <div class="dropdown">
-        <label for="game-select">Select Game:</label>
-        <select id="game-select">
-            {% for game_name, game_data in games.items %}
-            <option value="{{ game_name }}" {% if current_game == game_name %}selected{% endif %}>
-                {{ game_data.title }}
-            </option>
-            {% endfor %}
-        </select>
-    </div>
+    
 
     <script>
         // Redirect to the selected game's page
