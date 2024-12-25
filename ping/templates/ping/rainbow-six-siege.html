@@ -66,14 +66,18 @@
         async function pingServer(url, element) {
             const start = Date.now();
             try {
-                await fetch(url, { method: 'HEAD', cache: 'no-store' });
+                await fetch(url, { method: 'GET', cache: 'no-store' });
                 const latency = Date.now() - start;
                 element.textContent = `${latency} ms`;
                 element.classList.add('ping-success');
+            //even in 404 error show the latency
             } catch (error) {
-                console.error(`Error pinging ${url}:`, error);
-                element.textContent = 'Timed out';
-                element.classList.add('ping-failure');
+                // console.error(`Error pinging ${url}:`, error);
+                const latency = Date.now() - start; 
+                element.textContent = `${latency} ms`; 
+                // element.textContent = 'Timed out';
+                element.classList.add('ping-success');
+                // element.classList.add('ping-failure');
             }
         }
 //         async function pingServer(url, element) {
@@ -131,7 +135,7 @@
         // window.onload = pingAllServers; //pnce
         window.onload = () => {
             refreshLatency(); // Fetch initial latency
-            setInterval(refreshLatency, 3000); // Refresh every 3 seconds
+            setInterval(refreshLatency, 2000); // Refresh every 2 seconds
         };
     </script>   
 </body>
