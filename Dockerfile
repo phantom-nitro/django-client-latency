@@ -19,9 +19,9 @@ COPY . /app/
 
 # Add this before running collectstatic
 ARG DJANGO_ENV_FILE
-RUN echo "$DJANGO_ENV_FILE" > /app/.env
-RUN cat .env
-RUN ls -a
+RUN echo "$DJANGO_ENV_FILE" > /app/.env && \
+cat /app/.env && \
+ls -a /app
 RUN python3.10 manage.py collectstatic --noinput
 
 
