@@ -21,7 +21,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-       docker build --build-arg --no-cache DJANGO_ENV_FILE="${{ secrets.DJANGO_ENV_FILE }}" -t django-app .
+       docker build --build-arg DJANGO_ENV_FILE="${{ secrets.DJANGO_ENV_FILE }}" -t django-app .
 
     - name: Run Django tests
       run: |
