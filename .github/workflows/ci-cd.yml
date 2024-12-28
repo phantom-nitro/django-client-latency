@@ -49,12 +49,12 @@ jobs:
           cd app/
 
           # Clone the Git repository if it's not already there
-        if [ ! -d .git ]; then
-          git clone https://github.com/phantom-nitro/django-client-latency.git 
-        else
-          git pull origin main
-        fi
-
+          if [ ! -d .git ]; then
+            git clone https://github.com/phantom-nitro/django-client-latency.git 
+          else
+            git pull origin main
+          fi
+          cd django-client-latency
           # Optionally copy the .env file to the server
           echo "${{ secrets.DJANGO_ENV_FILE }}" > .env  # If you use .env files for configuration
           
