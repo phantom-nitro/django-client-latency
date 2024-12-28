@@ -17,7 +17,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Django project into the container
 COPY . /app/
 
+# Add this before running collectstatic
+ARG DJANGO_ENV_FILE
+RUN echo "$DJANGO_ENV_FILE" > /app/.env
 RUN python manage.py collectstatic --noinput
+
 
 # Expose the port your Django app runs on (default is 8000)
 EXPOSE 8000
