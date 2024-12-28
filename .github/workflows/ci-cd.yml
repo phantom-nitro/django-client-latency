@@ -21,7 +21,8 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build --build-arg DJANGO_ENV_FILE="${{ secrets.DJANGO_ENV_FILE }}" -t django-app .
+        echo "${{ secrets.DJANGO_ENV_FILE }}" > .env  # Add .env content during CI build
+        docker build --build-arg DJANGO_ENV_FILE=$(cat .env) -t django-app .
 
     - name: Run Django tests
       run: |
