@@ -20,7 +20,9 @@ COPY . /app/
 # Add this before running collectstatic
 ARG DJANGO_ENV_FILE
 RUN echo "$DJANGO_ENV_FILE" > /app/.env && \
+echo "Debugging .env file:" && \
 cat /app/.env && \
+echo "Contents of /app directory:" && \
 ls -a /app
 RUN python3.10 manage.py collectstatic --noinput
 
