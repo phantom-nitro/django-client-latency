@@ -22,7 +22,7 @@ jobs:
     - name: Build Docker image
       run: |
        docker build --build-arg DJANGO_ENV_FILE="${{ secrets.DJANGO_ENV_FILE }}" -t django-app .
-       
+
     - name: Run Django tests
       run: |
         docker run --rm django-app python manage.py test
@@ -46,7 +46,7 @@ jobs:
       run: |
         sshpass -p "${{ secrets.EC2_PASSWORD }}" ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_IP }} << EOF
           # Navigate to the application directory
-          cd /app
+          cd app/
 
           # Optionally copy the .env file to the server
           echo "${{ secrets.DJANGO_ENV_FILE }}" > .env  # If you use .env files for configuration
