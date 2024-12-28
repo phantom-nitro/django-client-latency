@@ -20,11 +20,11 @@ COPY . /app/
 # Add this before running collectstatic
 ARG DJANGO_ENV_FILE
 RUN echo "$DJANGO_ENV_FILE" > /app/.env
-RUN python manage.py collectstatic --noinput
+RUN python3.10 manage.py collectstatic --noinput
 
 
 # Expose the port your Django app runs on (default is 8000)
 EXPOSE 8000
 
 # Command to run the Django app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3.10", "manage.py", "runserver", "0.0.0.0:8000"]
