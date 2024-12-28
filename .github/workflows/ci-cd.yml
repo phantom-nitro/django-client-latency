@@ -48,12 +48,16 @@ jobs:
           # Navigate to the application directory
           cd app/
 
+          # Clone the Git repository if it's not already there
+        if [ ! -d .git ]; then
+          git clone https://github.com/phantom-nitro/django-client-latency.git .
+        else
+          git pull origin main
+        fi
+
           # Optionally copy the .env file to the server
           echo "${{ secrets.DJANGO_ENV_FILE }}" > .env  # If you use .env files for configuration
-
-          # Pull the latest code from GitHub (if needed)
-          git pull origin main
-
+          
           # Build the Docker image and restart the container
           docker build -t django-app .
           docker stop django-app || true  # Stop the previous container if it's running
