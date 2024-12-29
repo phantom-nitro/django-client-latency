@@ -19,8 +19,10 @@ COPY . /app/
 
 # Environment Variable passing
 ARG DJANGO_ENV_FILE
-RUN echo "***SECRET***" > /app/.env || exit 1
-RUN echo "$DJANGO_ENV_FILE" | cat > /app/.env
+RUN ["/bin/bash", "-c", "echo \"$DJANGO_ENV_FILE\" > /app/.env && chmod 600 /app/.env"]
+
+# Ensure the .env file content isn't printed
+RUN ["/bin/bash", "-c", "ls -al /app && echo '.env file created successfully'"]
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
