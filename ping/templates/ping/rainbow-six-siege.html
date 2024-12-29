@@ -174,7 +174,7 @@
         });
         
         // Function to ping a server and display the latency
-        async function pingServer(url, element) {
+        async function pingServer(url, element, serverKey) {
             const start = Date.now();
             try {
                 await fetch(url, { method: 'GET', cache: 'no-store' });
