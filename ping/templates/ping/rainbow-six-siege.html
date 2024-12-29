@@ -164,6 +164,17 @@
             return Math.round(sum / latencies.length);
         }
 
+        // Function to set color based on latency value
+        function setLatencyColor(element, latency) {
+            if (latency > 300) {
+                element.style.color = 'red';
+            } else if (latency > 200) {
+                element.style.color = 'orange';
+            } else {
+                element.style.color = 'green';
+            }
+        }
+
         // Redirect to the selected game's page
         const gameSelect = document.getElementById('game-select');
         gameSelect.addEventListener('change', (event) => {
@@ -192,7 +203,8 @@
                 // Calculate the average latency
                 const averageLatency = calculateAverage(latencyHistory[serverKey]);
                 element.textContent = `${averageLatency} ms`;
-                element.classList.add('ping-success');
+                setLatencyColor(element, averageLatency); // Apply color
+                // element.classList.add('ping-success');
             //even in 404 error show the latency
             } catch (error) {
                 // console.error(`Error pinging ${url}:`, error);
@@ -207,8 +219,9 @@
                 }
                 const averageLatency = calculateAverage(latencyHistory[serverKey]);
                 element.textContent = `${averageLatency} ms`; 
+                setLatencyColor(element, averageLatency); // Apply color
                 // element.textContent = 'Timed out';
-                element.classList.add('ping-success');
+                // element.classList.add('ping-success');
                 // element.classList.add('ping-failure');
             }
         }
