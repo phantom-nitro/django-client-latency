@@ -15,6 +15,12 @@
     </select>
 
     <script>
+        // Reset the dropdown to the default option (Select a Game) when the page loads
+        window.onload = function() {
+            const gameSelect = document.getElementById('game-select');
+            gameSelect.value = "";  // This ensures that the default option is selected
+        };
+
         function redirectToGamePage() {
             const dropdown = document.getElementById('game-select');
             const selectedGame = dropdown.value;
