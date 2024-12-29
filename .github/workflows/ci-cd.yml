@@ -71,7 +71,8 @@ jobs:
           docker stop django-app || true  # Stop the previous container if it's running
           docker rm django-app || true    # Remove the old container
 
-          docker run -d -p 8000:8000 --name django-app django-app
+          docker run -d -p 8000:8000 --name django-app \
+        -e DJANGO_ENV_FILE="${{ secrets.DJANGO_ENV_FILE }}" django-app
         EOF
 
     - name: Clean up
