@@ -24,7 +24,7 @@ echo "Debugging .env file:" && \
 cat /app/.env && \
 echo "Contents of /app directory:" && \
 ls -a /app
-# RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
 
 
 # Expose the port your Django app runs on (default is 8000)
