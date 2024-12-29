@@ -214,20 +214,20 @@
         }
 
         // Ping all servers listed on the page
-        function pingAllServers() {
-            const serverItems = document.querySelectorAll('#server-list li');
-            serverItems.forEach(item => {
-                const url = item.getAttribute('data-url');
-                const resultElement = item.querySelector('.ping-result');
-                pingServer(url, resultElement);
-            });
-        }
+        // function pingAllServers() {
+        //     const serverItems = document.querySelectorAll('#server-list li');
+        //     serverItems.forEach(item => {
+        //         const url = item.getAttribute('data-url');
+        //         const resultElement = item.querySelector('.ping-result');
+        //         pingServer(url, resultElement);
+        //     });
+        // }
         function refreshLatency() {
             const servers = document.querySelectorAll('#server-list li');
             servers.forEach((server, index) => {
                 const ip = server.getAttribute('data-url');
                 const resultElement = document.getElementById(`ping-${index + 1}`);
-                pingServer(ip, resultElement);
+                pingServer(ip, resultElement, `server-${index + 1}`);
             });
         }
 
