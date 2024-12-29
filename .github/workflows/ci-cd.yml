@@ -56,15 +56,21 @@ jobs:
 
           # Clone the repository from GitHub
           git clone https://github.com/phantom-nitro/django-client-latency.git
-          
+
           cd django-client-latency
-          # Optionally copy the .env file to the server
-          echo "${{ secrets.DJANGO_ENV_FILE }}" > .env  # If you use .env files for configuration
+
+          # Save the .env file to the build context
+          echo "${{ secrets.DJANGO_ENV_FILE }}" > .env
+          echo "Debugging .env file on EC2:"
+          cat .env
           
-          # Build the Docker image and restart the container
-          docker build --no-cache -t django-app .
+          # Build the Docker image with no cache
+          docker build --no-cache --build-arg DJANGO_ENV_FILE="$(cat .env)" -t django-app .
+
+
           docker stop django-app || true  # Stop the previous container if it's running
           docker rm django-app || true    # Remove the old container
+
           docker run -d -p 8000:8000 --name django-app django-app
         EOF
 

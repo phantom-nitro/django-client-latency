@@ -17,13 +17,15 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Django project into the container
 COPY . /app/
 
-# Add this before running collectstatic
+# Environment Variable passing
 ARG DJANGO_ENV_FILE
 RUN echo "$DJANGO_ENV_FILE" > /app/.env && \
 echo "Debugging .env file:" && \
 cat /app/.env && \
 echo "Contents of /app directory:" && \
 ls -a /app
+
+# Run collectstatic
 RUN python manage.py collectstatic --noinput
 
 
