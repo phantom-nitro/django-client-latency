@@ -60,7 +60,7 @@ jobs:
           cd django-client-latency
 
           # Save the .env file to the build context
-          echo "${{ secrets.DJANGO_ENV_FILE }}" > .env
+          echo "${{ secrets.DJANGO_ENV_FILE }}" > .env || exit 1
           # echo "Debugging .env file on EC2:"
           # cat .env
           
