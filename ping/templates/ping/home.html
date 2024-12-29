@@ -20,6 +20,14 @@
             const gameSelect = document.getElementById('game-select');
             gameSelect.value = "";  // This ensures that the default option is selected
         };
+        
+        // Reset dropdown when navigating back in browser
+        window.onpageshow = function(event) {
+            if (event.persisted) { // Check if the page was loaded from the cache (back button)
+                const gameSelect = document.getElementById('game-select');
+                gameSelect.value = "";  // Reset to default option
+            }
+        };
 
         function redirectToGamePage() {
             const dropdown = document.getElementById('game-select');
