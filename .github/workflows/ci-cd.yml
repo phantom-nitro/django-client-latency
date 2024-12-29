@@ -61,8 +61,8 @@ jobs:
 
           # Save the .env file to the build context
           echo "${{ secrets.DJANGO_ENV_FILE }}" > .env
-          echo "Debugging .env file on EC2:"
-          cat .env
+          # echo "Debugging .env file on EC2:"
+          # cat .env
           
           # Build the Docker image with no cache
           docker build --no-cache --build-arg DJANGO_ENV_FILE="$(cat .env)" -t django-app .
