@@ -26,7 +26,7 @@ def game_page(request, game_name):
                 'West Europe': 'https://s9westeurope.blob.core.windows.net/public/latency-test.json',
                 'Eu-Central-1': 'https://ec2.eu-central-1.amazonaws.com/ping',
                 'East Asia': 'https://s9eastasia.blob.core.windows.net/public/latency-test.json',
-                'Southeast Asia': 'https://h3southeastasia.blob.core.windows.net/public/latency-test.json',
+                'Southeast Asia': 'https://s9southeastasia.blob.core.windows.net/public/latency-test.json',
                 'Japan East': 'https://s9japaneast.blob.core.windows.net/public/latency-test.json',
                 'Australia East': 'https://s9australiaeast.blob.core.windows.net/public/latency-test.json',
             },
