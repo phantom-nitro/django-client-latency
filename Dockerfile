@@ -19,7 +19,7 @@ COPY . /app/
 
 # Environment Variable passing
 ARG DJANGO_ENV_FILE
-RUN echo "$DJANGO_ENV_FILE" > /app/.env
+RUN echo "$DJANGO_ENV_FILE" > /app/.env || exit 1
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput
