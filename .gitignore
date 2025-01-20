@@ -8,6 +8,13 @@ db.sqlite3
 media/
 static/
 
+# TailwindCSS and Node.js
+theme/static_src/node_modules/
+theme/static_src/package-lock.json
+
+# Tailwind build files (compiled CSS)
+theme/static/css/
+
 # Environment variables
 .env
 
